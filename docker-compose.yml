@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+    producer:
+        build: ./producer
+        environment:
+            BROKER_URL: broker:9092
+            TOPIC_NAME: data-input
+            RESULT_TOPIC: data-output
+            TOTAL_PARTITIONS: 10
+            CLIENT_ID: test
+
+    consumer:
+        build: ./simple_consumer
+        depends_on:
+            - producer
+        environment:
+            BROKER_URL: broker:9092
+            TOPIC_NAME: data-input
+            RESULT_TOPIC: data-output
+            GROUP_NAME: consumer-group
+# Give this composition access to the Kafka network
+networks:
+    default:
+        external:
+            name: assignment-kafka-network
