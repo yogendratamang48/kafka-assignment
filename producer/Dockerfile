@@ -7,4 +7,7 @@ ADD ./requirements.txt ./
 RUN pip install -r requirements.txt
 ADD ./ ./
 
-CMD ["python", "app.py"]
+# Creating topic
+
+# Run Producer Script
+CMD ["./run.sh"]

@@ -9,7 +9,9 @@ TOTAL_PARTITIONS = os.environ.get('TOTAL_PARTITIONS')
 BROKER_URL = os.environ.get('BROKER_URL')
 
 
-consumer = KafkaConsumer(TOPIC_NAME,
+consumer = KafkaConsumer(
+                         TOPIC_NAME,
+                         bootstrap_servers=BROKER_URL,
                          group_id=GROUP_NAME,
                          value_deserializer=lambda v: int(v.decode('utf-8')),
                          key_deserializer=lambda v: v.decode(),
