@@ -25,6 +25,8 @@ services:
             REDIS_LIST_NAME: mylist
     redis:
         image: bitnami/redis
+        ports:
+            - "6379:6379"
         environment:
             ALLOW_EMPTY_PASSWORD: "yes"
 # Give this composition access to the Kafka network

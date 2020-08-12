@@ -21,7 +21,7 @@ def process_message(msg):
     """saves data to redis list
     """
     # print("Processing inside redis..")
-    redis_client.save_to_list(REDIS_LIST_NAME, msg.value)
+    redis_client.save_to_list(REDIS_LIST_NAME, msg)
 
 
 if __name__ == '__main__':
@@ -37,22 +37,17 @@ if __name__ == '__main__':
     collector = []
     print(f"Reading data from {TOPIC_NAME}")
     for message in consumer:
-        process_message(message)
-        collector.append(message.value)
-
-    collector = sorted(collector)
+        process_message(message.value)
 
     # Sending to Another Stream
     producer = KafkaProducer(
         bootstrap_servers=BROKER_URL,
-        value_serializer=lambda value: str(value).encode()
+        # value_serializer=lambda value: str(value).encode()
         )
 
     print(f"Streaming combined data into..{RESULT_TOPIC}")
-
-
     for element in redis_client.retrieve_list(REDIS_LIST_NAME):
-        print(f"Reading from redis: ... {element}")
+        # print(f"Reading from redis: ... {element}")
         producer.send(RESULT_TOPIC, value=element)
     producer.close()
 
