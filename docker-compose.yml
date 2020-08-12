@@ -14,11 +14,19 @@ services:
         build: ./simple_consumer
         depends_on:
             - producer
+            - redis
         environment:
             BROKER_URL: broker:9092
             TOPIC_NAME: data-input
             RESULT_TOPIC: data-output
-            GROUP_NAME: consumer-group
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+            REDIS_DB: 0
+            REDIS_LIST_NAME: mylist
+    redis:
+        image: bitnami/redis
+        environment:
+            ALLOW_EMPTY_PASSWORD: "yes"
 # Give this composition access to the Kafka network
 networks:
     default:
