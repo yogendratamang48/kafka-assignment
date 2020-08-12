@@ -25,6 +25,16 @@
 
 ### 3. Scalable Consumer
 
+### Common Commands
+
+```
+# Show Kafka Topics
+docker-compose -f docker-compose.kafka.yml exec broker kafka-topics --bootstrap-server localhost:9092 --list
+
+# Change partitions if not working
+docker-compose -f docker-compose.kafka.yml exec broker kafka-topics --alter --bootstrap-server localhost:9092 --topic data-input --partitions 10
+```
+
 ### Resources
 
 -   https://blog.cloudera.com/scalability-of-kafka-messaging-using-consumer-groups/
