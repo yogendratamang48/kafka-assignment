@@ -34,7 +34,6 @@ if __name__ == '__main__':
                             consumer_timeout_ms=4000,
                             auto_offset_reset='earliest'
                             )
-    collector = []
     print(f"Reading data from {TOPIC_NAME}")
     for message in consumer:
         process_message(message.value)
