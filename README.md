@@ -21,7 +21,7 @@
 #### How to handle ordering ??
 
 -   Idea: Storing data in KeyValue Store, Retreiving them in order
--   Saving in database and
+-   Saving them into Redis and retrieving sorted. and streaming to output
 
 ### 3. Scalable Consumer
 
